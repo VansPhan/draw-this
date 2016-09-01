@@ -28,7 +28,7 @@ io.on('connection', function(socket){
   socket.on('delete message', function(msg) {
     io.emit('delete message', msg);
     Message.findOneAndRemove({ _id: msg._id }).then(function() {
-      console.log("Deleted")
+      
     });
   });
 });

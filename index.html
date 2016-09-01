@@ -10,6 +10,9 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   </head>
   <body ng-app="web-sockets" ng-controller="wsController as vm">
+     <canvas id='canvas' style="display: block;">
+      Looks like your browser doesn't support canvas!
+    </canvas>
     <div id="chat">
       <ul id="messages" data-ng-repeat="message in vm.messages track by $index">
         <li data-ng-click="vm.delete(message)">{{message.text}}</li>
@@ -20,6 +23,14 @@
         <button>Send</button>
       </form>
     </div>
-
+<div id="toolbar">
+      <div id="rad">
+        Radius <span id="radval">10</span>
+        <div id="decrad" class="radcontrol">-</div>
+        <div id="incrad" class="radcontrol">+</div>
+      </div>
+      <div id="colors"></div>
+      <div id="clear">Clear</div>
+    </div>
   </body>
 </html>
