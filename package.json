@@ -1,0 +1,16 @@
+{
+  "name": "draw-this",
+  "version": "1.0.0",
+  "description": "Web Socket practice with drawing app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Van Phan",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^4.5.10",
+    "nodemon": "^1.10.2",
+    "socket.io": "^1.4.8"
+  }
+}
