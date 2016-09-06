@@ -2,27 +2,42 @@
 	angular
 	.module("web-sockets", ["ngResource"])
 	.factory("MessageFactory", [ "$resource", Message ])
+	.factory("ImageFactory", [ "$resource", Image ])
 	.controller("wsController", [
 		"$scope",
 		"MessageFactory",
+		"ImageFactory",
 		wsControllerFunction
 	])
+	function Image($resource) {
+		return $resource("/api/images", {}, {
+			method: { update: "PUT" }
+		});
+	}
 	function Message($resource) {
 		return $resource("/api/messages", {}, {
 			method: { update: "PUT" }
 		});
 	}
-	function wsControllerFunction($scope, MessageFactory) {
+	function wsControllerFunction($scope, MessageFactory, ImageFactory) {
 		var socket = io();
 		var vm = this;
+		var server_image = document.getElementById('server_image');
 
 		MessageFactory.query().$promise.then(function (messages) {
 			vm.messages = messages;
 		});
 
+		ImageFactory.query().$promise.then(function (img) {
+			vm.image = img[0].imgBase64;
+			server_image.src = img[1].imgBase64;
+		});
+
 	   vm.sendMessage = function () {
+	   	vm.image = canvas.toDataURL();
 			socket.emit('chat message', vm.newMessage)
 			vm.newMessage = '';
+			socket.emit('image', vm.image)
 		}
 		
 		vm.delete = function(msg) {
@@ -51,7 +66,6 @@
 
 		var radius = 10;
 		var dragging = false;
-
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
 		var CleanBtn = document.getElementById('clear');
